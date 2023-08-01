@@ -1,8 +1,7 @@
-// Wordle word list
 const wordList = ["APPLE", "BANAN", "CHURR", "DUVET", "EAGLE", "FLAME", "GRANT", "HYENA", "INANE", "JOKER"];
 
 let selectedWord = "";
-let guessedLetters = new Set();
+let guessedLetters = new Array(5).fill(null);
 let guessesRemaining = 6;
 
 function pickRandomWord() {
@@ -11,7 +10,7 @@ function pickRandomWord() {
 
 function initializeGame() {
   selectedWord = pickRandomWord();
-  guessedLetters.clear();
+  guessedLetters = new Array(5).fill(null);
   guessesRemaining = 6;
   updateWordDisplay();
   updateKeyboard();
@@ -21,9 +20,8 @@ function initializeGame() {
 
 function updateWordDisplay() {
   const wordDisplayElement = document.getElementById("wordDisplay");
-  wordDisplayElement.innerHTML = selectedWord
-    .split('')
-    .map((letter) => `<div class="letter ${guessedLetters.has(letter) ? "revealed" : ""}">${guessedLetters.has(letter) ? letter : ""}</div>`)
+  wordDisplayElement.innerHTML = guessedLetters
+    .map((letter, index) => `<div class="letter ${letter ? (letter === selectedWord[index] ? "correct" : "incorrect") : ""}">${letter || ""}</div>`)
     .join('');
 }
 
@@ -32,20 +30,22 @@ function updateKeyboard() {
   const keyboardElement = document.getElementById("keyboard");
   keyboardElement.innerHTML = alphabet
     .split('')
-    .map((letter) => `<div class="letter ${guessedLetters.has(letter) ? "guessed" : ""}" onclick="selectLetter('${letter}')">${letter}</div>`)
+    .map((letter) => `<div class="letter" onclick="selectLetter('${letter}')">${letter}</div>`)
     .join('');
 }
 
 function selectLetter(letter) {
-  if (guessedLetters.size < 5) {
-    guessedLetters.add(letter);
-    updateWordDisplay();
-    updateKeyboard();
+  if (!guessedLetters.includes(letter)) {
+    const emptySlotIndex = guessedLetters.indexOf(null);
+    if (emptySlotIndex !== -1) {
+      guessedLetters[emptySlotIndex] = letter;
+      updateWordDisplay();
+    }
   }
 }
 
-function guessWord() {
-  const guessedWord = [...guessedLetters].join('');
+function checkWord() {
+  const guessedWord = guessedLetters.join('');
   if (guessedWord === selectedWord) {
     showMessage("Congratulations! You've guessed the word!");
   } else {
