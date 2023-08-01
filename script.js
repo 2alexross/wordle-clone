@@ -1,6 +1,7 @@
 const wordList = ["APPLE", "BANAN", "CHURR", "DUVET", "EAGLE", "FLAME", "GRANT", "HYENA", "INANE", "JOKER"];
 
 let selectedWord = "";
+let guessedLetters = new Set();
 let guessesRemaining = 6;
 
 function pickRandomWord() {
@@ -9,6 +10,7 @@ function pickRandomWord() {
 
 function initializeGame() {
   selectedWord = pickRandomWord();
+  guessedLetters = new Set();
   guessesRemaining = 6;
   updateWordDisplay();
   document.getElementById("guessInput").value = "";
@@ -34,10 +36,10 @@ function guessWord() {
   }
 
   guessesRemaining--;
-  const guessedLetters = new Set(guessedWord); // Fix the variable name to guessedLetters
+  guessedLetters = new Set(guessedWord); // Update guessedLetters with the new guess
   updateWordDisplay();
 
-  // The rest of the code remains the same as in the previous response
+  // The rest of the code remains the same as in the previous responses
   // ...
 }
 
