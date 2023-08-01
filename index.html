@@ -1,22 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wordle Clone</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Wordle Clone</h1>
-    <div class="word-display" id="wordDisplay">
-      <!-- The word will be displayed here with placeholders for unrevealed letters -->
-    </div>
-    <input type="text" maxlength="5" id="guessInput" placeholder="Enter your guess">
-    <button onclick="guessWord()">Submit</button>
-    <button onclick="resetGame()">New Game</button>
-    <p id="message"></p>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
+<section>
+  <div id="wordDisplay"></div>
+  <input type="text" id="guessInput" placeholder="Enter a 5-letter word" />
+  <button onclick="guessWord()">Submit</button>
+  <button onclick="resetGame()">Reset</button>
+  <p id="message"></p>
+</section>
