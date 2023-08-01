@@ -1,45 +1,68 @@
+/* Global Styles & Colors */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  background-color: var(--color-background);
   margin: 0;
   padding: 0;
 }
 
-.container {
-  max-width: 400px;
-  margin: 0 auto;
+section {
+  margin: auto;
+  max-width: var(--game-max-width);
   padding: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-h1 {
-  margin: 20px;
+#wordDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
-.word-display {
-  font-size: 30px;
-  margin: 20px 0;
+#wordDisplay .letter {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--key-bg);
+  color: var(--tile-text-color);
+  margin-right: 5px;
+  border-radius: 5px;
 }
 
-#guessInput {
-  padding: 5px;
-  margin-bottom: 10px;
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  background-color: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: var(--darkendGreen);
 }
 
 #message {
-  font-weight: bold;
-  margin-top: 10px;
+  font-size: 18px;
+  margin-top: 20px;
 }
+
+hr {
+  margin: 20px 0;
+  border: 1px solid var(--color-tone-4);
+}
+
+/* Add any other additional styles you want here */
