@@ -1,12 +1,9 @@
+// Wordle word list
 const wordList = ["APPLE", "BANAN", "CHURR", "DUVET", "EAGLE", "FLAME", "GRANT", "HYENA", "INANE", "JOKER"];
 
 let selectedWord = "";
-let guessesRemaining = 6;
 let guessedLetters = new Set();
-let wordDisplayElement = document.getElementById("wordDisplay");
-let keyboardElement = document.getElementById("keyboard");
-let guessesRemainingElement = document.getElementById("guessesRemaining");
-let messageElement = document.getElementById("message");
+let guessesRemaining = 6;
 
 function pickRandomWord() {
   return wordList[Math.floor(Math.random() * wordList.length)];
@@ -18,11 +15,12 @@ function initializeGame() {
   guessesRemaining = 6;
   updateWordDisplay();
   updateKeyboard();
-  guessesRemainingElement.textContent = `Guesses remaining: ${guessesRemaining}`;
-  messageElement.textContent = "";
+  updateGuessesRemaining();
+  showMessage("");
 }
 
 function updateWordDisplay() {
+  const wordDisplayElement = document.getElementById("wordDisplay");
   wordDisplayElement.innerHTML = selectedWord
     .split('')
     .map((letter) => `<div class="letter ${guessedLetters.has(letter) ? "revealed" : ""}">${guessedLetters.has(letter) ? letter : ""}</div>`)
@@ -31,6 +29,7 @@ function updateWordDisplay() {
 
 function updateKeyboard() {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const keyboardElement = document.getElementById("keyboard");
   keyboardElement.innerHTML = alphabet
     .split('')
     .map((letter) => `<div class="letter ${guessedLetters.has(letter) ? "guessed" : ""}" onclick="selectLetter('${letter}')">${letter}</div>`)
@@ -38,7 +37,7 @@ function updateKeyboard() {
 }
 
 function selectLetter(letter) {
-  if (!guessedLetters.has(letter)) {
+  if (guessedLetters.size < 5) {
     guessedLetters.add(letter);
     updateWordDisplay();
     updateKeyboard();
@@ -48,18 +47,28 @@ function selectLetter(letter) {
 function guessWord() {
   const guessedWord = [...guessedLetters].join('');
   if (guessedWord === selectedWord) {
-    messageElement.textContent = "Congratulations! You've guessed the word!";
+    showMessage("Congratulations! You've guessed the word!");
   } else {
     guessesRemaining--;
-    guessesRemainingElement.textContent = `Guesses remaining: ${guessesRemaining}`;
+    updateGuessesRemaining();
     if (guessesRemaining === 0) {
-      messageElement.textContent = `Game over! The word was "${selectedWord}".`;
+      showMessage(`Game over! The word was "${selectedWord}".`);
     }
   }
 }
 
 function resetGame() {
   initializeGame();
+}
+
+function updateGuessesRemaining() {
+  const guessesRemainingElement = document.getElementById("guessesRemaining");
+  guessesRemainingElement.textContent = `Guesses remaining: ${guessesRemaining}`;
+}
+
+function showMessage(message) {
+  const messageElement = document.getElementById("message");
+  messageElement.textContent = message;
 }
 
 initializeGame();
