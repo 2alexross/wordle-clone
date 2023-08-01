@@ -1,74 +1,45 @@
-const wordList = ["APPLE", "BANAN", "CHURR", "DUVET", "EAGLE", "FLAME", "GRANT", "HYENA", "INANE", "JOKER"];
-
-let selectedWord = "";
-let guessedLetters = new Array(5).fill(null);
-let guessesRemaining = 6;
-
-function pickRandomWord() {
-  return wordList[Math.floor(Math.random() * wordList.length)];
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-function initializeGame() {
-  selectedWord = pickRandomWord();
-  guessedLetters = new Array(5).fill(null);
-  guessesRemaining = 6;
-  updateWordDisplay();
-  updateKeyboard();
-  updateGuessesRemaining();
-  showMessage("");
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-function updateWordDisplay() {
-  const wordDisplayElement = document.getElementById("wordDisplay");
-  wordDisplayElement.innerHTML = guessedLetters
-    .map((letter, index) => `<div class="letter ${letter ? (letter === selectedWord[index] ? "correct" : "incorrect") : ""}">${letter || ""}</div>`)
-    .join('');
+h1 {
+  margin: 20px;
 }
 
-function updateKeyboard() {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const keyboardElement = document.getElementById("keyboard");
-  keyboardElement.innerHTML = alphabet
-    .split('')
-    .map((letter) => `<div class="letter" onclick="selectLetter('${letter}')">${letter}</div>`)
-    .join('');
+.word-display {
+  font-size: 30px;
+  margin: 20px 0;
 }
 
-function selectLetter(letter) {
-  if (!guessedLetters.includes(letter)) {
-    const emptySlotIndex = guessedLetters.indexOf(null);
-    if (emptySlotIndex !== -1) {
-      guessedLetters[emptySlotIndex] = letter;
-      updateWordDisplay();
-    }
-  }
+#guessInput {
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
-function checkWord() {
-  const guessedWord = guessedLetters.join('');
-  if (guessedWord === selectedWord) {
-    showMessage("Congratulations! You've guessed the word!");
-  } else {
-    guessesRemaining--;
-    updateGuessesRemaining();
-    if (guessesRemaining === 0) {
-      showMessage(`Game over! The word was "${selectedWord}".`);
-    }
-  }
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-function resetGame() {
-  initializeGame();
+button:hover {
+  background-color: #45a049;
 }
 
-function updateGuessesRemaining() {
-  const guessesRemainingElement = document.getElementById("guessesRemaining");
-  guessesRemainingElement.textContent = `Guesses remaining: ${guessesRemaining}`;
+#message {
+  font-weight: bold;
+  margin-top: 10px;
 }
-
-function showMessage(message) {
-  const messageElement = document.getElementById("message");
-  messageElement.textContent = message;
-}
-
-initializeGame();
