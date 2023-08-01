@@ -12,13 +12,8 @@
     <div class="word-display" id="wordDisplay">
       <!-- The word will be displayed here with placeholders for unrevealed letters -->
     </div>
-    <div class="keyboard" id="keyboard">
-      <!-- An on-screen keyboard for letter selection -->
-    </div>
-    <div class="guesses" id="guessesRemaining">
-      Guesses remaining: 6
-    </div>
-    <button onclick="checkWord()">Submit</button>
+    <input type="text" maxlength="5" id="guessInput" placeholder="Enter your guess">
+    <button onclick="guessWord()">Submit</button>
     <button onclick="resetGame()">New Game</button>
     <p id="message"></p>
   </div>
